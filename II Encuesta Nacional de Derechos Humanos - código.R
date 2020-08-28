@@ -1,41 +1,40 @@
-*** CÛdigo de post "Una exploraciÛn a los datos de la II Encuesta Nacional de Derechos Humanos†(Per˙)"***
+*** C√≥digo de post "Una exploraci√≥n a los datos de la II Encuesta Nacional de Derechos Humanos¬†(Per√∫)"***
 
-A) Sobre aquellos que no se sintieron discriminados, seg˙n NSE
+A) Sobre aquellos que no se sintieron discriminados, seg√∫n NSE
 
-# Data.frame de la pregunta 6, sobre la base del documento de Excel
-'Tabla de resultados por edad, sexo y NSE'. Datos de los que no se han sentido
-discriminados (en los ˙ltimos doce meses) seg˙n nivel socioeconÛmico.
+# Data.frame de la pregunta 6, sobre la base del documento de Excel 'Tabla de resultados por edad, sexo y NSE'. 
+# Datos de los que no se han sentido discriminados (en los √∫ltimos doce meses) seg√∫n nivel socioecon√≥mico.
 
 data1 = data.frame(NSE=c("A-B", "C", "D-E"), Porcentaje=c(68, 66, 63))
 
-# Cargar librerÌa ggplot
+# Cargar librer√≠a ggplot
 
 library(ggplot2)
 
-# Gr·fico
+# Gr√°fico
 
 a = ggplot(data1, aes(x=NSE, y=Porcentaje))+
 geom_bar(stat = "identity", width=0.3, fill = "red", color = "grey40")+ 
 geom_text(aes(label=scales::percent(Porcentaje, scale = 1, accuracy = 1)), 
 vjust=1.5, color="white", size=3)+
-ggtitle("No se sintieron discriminados en los ˙ltimos 
-doce meses, seg˙n NSE")+labs(y="", x="")+
+ggtitle("No se sintieron discriminados en los √∫ltimos 
+doce meses, seg√∫n NSE")+labs(y="", x="")+
 theme(plot.title = element_text(color="black", size=15, face="bold"))+
 ylim(0,100)
 
 a
 
-B) Confianza en FFAA y nivel de estudios [NO SE INCLUY” EN EL POST]
+B) Confianza en FFAA y nivel de estudios [NO SE INCLUY√ì EN EL POST]
 
 # Cargar archivo con la base de datos
 
 DH = read.csv("II-ENDHcsv.csv")
 
-# DistribuciÛn de respuestas seg˙n nivel de estudios
+# Distribuci√≥n de respuestas seg√∫n nivel de estudios
 
 table(DH$P44, DH$P38_7_Rp)
 
-# Ajustar los valores de la distribuciÛn aplicando factor de ponderaciÛn
+# Ajustar los valores de la distribuci√≥n aplicando factor de ponderaci√≥n
 
 sum((subset(DH, DH$P44==1 & DH$P38_7_Rp==99))$WTVAR)
 sum((subset(DH, DH$P44==1 & DH$P38_7_Rp==98))$WTVAR)
@@ -67,7 +66,7 @@ sum((subset(DH, DH$P44==6 & DH$P38_7_Rp==2))$WTVAR)
 sum((subset(DH, DH$P44==6 & DH$P38_7_Rp==98))$WTVAR)
 sum((subset(DH, DH$P44==6 & DH$P38_7_Rp==99))$WTVAR)
 
-# Reemplazar los valores de la distribuciÛn inicial con los
+# Reemplazar los valores de la distribuci√≥n inicial con los
 valores ponderados
 
       1       2     98     99
@@ -81,68 +80,66 @@ valores ponderados
 # Para la pregunta que interesa, sacar todos los porcentajes
 de la columna dos.
 
-# Data.frame de la pregunta 38. Datos de confianza en las FFAA seg˙n nivel 
+# Data.frame de la pregunta 38. Datos de confianza en las FFAA seg√∫n nivel 
 de estudios.
 
 data2 = data.frame(Niv.Estudios=c("Primaria", "Secundaria", 
-"Superior no Universitaria/ TÈcnica", "Superior Universitaria"), 
+"Superior no Universitaria/ T√©cnica", "Superior Universitaria"), 
 D=c("", "", "", ""), Porcentaje=c(43.72, 48.71, 
 46.06, 53.35))
 
-# Gr·fico
+# Gr√°fico
 
 b = ggplot(data2, aes(x=D, y=Porcentaje, fill=Niv.Estudios))+
 geom_bar(stat="identity", position=position_dodge(width=0.9),width=0.5)+ 
 geom_text(aes(label=scales::percent(Porcentaje, scale = 1, accuracy = 1)), 
 vjust=-1, color="black", 
 position = position_dodge(0.9), size=2.8)+scale_fill_brewer(palette="Set1")+
-theme_minimal()+ggtitle("Confianza en FFAA, seg˙n nivel educativo ")+
+theme_minimal()+ggtitle("Confianza en FFAA, seg√∫n nivel educativo ")+
 labs(y="", x="")
 
 b
 
 C) Confianza de mujeres en las FFAA
 
-# Data.frame de la pregunta 38, sobre la base del documento de Excel
-'Tabla de resultados por edad, sexo y NSE'. Datos apoyo a FFAA y otras 
-instituciones por parte de mujeres.
+# Data.frame de la pregunta 38, sobre la base del documento de Excel 'Tabla de resultados por edad, sexo y NSE'. 
+# Datos apoyo a FFAA y otras instituciones por parte de mujeres.
 
-data3 = data.frame(InstituciÛn=c("FFAA", "Medios de Com.", "ONGs", "PNP", 
-"Minist. P˙b.", "Defens. del Pueblo", "Muni Distrital", "Empresas", 
+data3 = data.frame(Instituci√≥n=c("FFAA", "Medios de Com.", "ONGs", "PNP", 
+"Minist. P√∫b.", "Defens. del Pueblo", "Muni Distrital", "Empresas", 
 "Poder Jud.", "Gobierno", "Trib. Constituc.", "Gob. Regional", "Congreso"), 
 D=c("", "", "", "", "", "", "", 
 "", "", "", "", "", ""), 
 Porcentaje=c(42, 41, 37, 27, 26, 25, 25, 23, 17, 17, 16, 16, 8))
 
-# Gr·fico
+# Gr√°fico
 
-c = ggplot(data=data3, aes(x=reorder(InstituciÛn, Porcentaje), 
+c = ggplot(data=data3, aes(x=reorder(Instituci√≥n, Porcentaje), 
 y=Porcentaje))+ geom_bar(stat="identity")+
 geom_text(aes(label=scales::percent(Porcentaje, scale = 1, accuracy = 1)), 
 vjust=1.6, color="white", position = position_dodge(0.9), size=4)+
-ggtitle("Confianza de mujeres sobre si cada instituciÛn respeta los derechos 
+ggtitle("Confianza de mujeres sobre si cada instituci√≥n respeta los derechos 
 humanos")+labs(y="", x="")+theme(plot.title = element_text(color="black", 
 size=13, face="bold"))+ylim(0,45)
 
 c
 
-# Data.frame de la pregunta 38, sobre la base del documento de Excel
-'Tabla de resultados por edad, sexo y NSE'. Datos apoyo a FFAA de mujeres
-y hombres.
+# Data.frame de la pregunta 38, sobre la base del documento de Excel 'Tabla de resultados por edad, sexo y NSE'. 
+# Datos apoyo a FFAA de mujeres y hombres.
 
 data4 = data.frame(Sexo=c("Mujer", "Mujer", "Mujer", "Hombre", "Hombre",
-"Hombre"), Confianza=c("ConfÌa", "DesconfÌa", "No precisa/ no sabe", 
-"ConfÌa", "DesconfÌa", "No precisa/ no sabe"), 
+"Hombre"), Confianza=c("Conf√≠a", "Desconf√≠a", "No precisa/ no sabe", 
+"Conf√≠a", "Desconf√≠a", "No precisa/ no sabe"), 
 Porcentaje=c(42, 52, 6, 54, 41, 5))
 
-# Gr·fico
+# Gr√°fico
 
 d = ggplot(data=data4, aes(x=Sexo, y=Porcentaje, fill=Confianza))+
 geom_bar(stat="identity", position=position_dodge(), width=0.3)+
 geom_text(aes(label=scales::percent(Porcentaje, scale = 1, accuracy = 1)), 
 vjust=1.6, color="white", 
 position = position_dodge(0.3), size=5)+
-ggtitle("Confianza en FFAA, seg˙n sexo")+ labs(y="", x="")+
+ggtitle("Confianza en FFAA, seg√∫n sexo")+ labs(y="", x="")+
 theme(plot.title = element_text(color="black", size=15, face="bold"))+
 ylim(0,60)
 
@@ -150,15 +147,14 @@ d
 
 D) Derechos humanos y empresas
 
-# CreaciÛn de dos conjuntos de datos: quienes consideran que
-grandes empresas sÌ respetan derechos humanos y quienes consideran que no.
+# Creaci√≥n de dos conjuntos de datos: quienes consideran que grandes empresas s√≠ respetan derechos humanos y quienes consideran que no.
+# Recordar que data frame original se carg√≥ con el c√≥digo: DH = read.csv("II-ENDHcsv.csv")
 
 DH1 = subset(DH, P42_1_Rp==1) 
 DH2 = subset(DH, P42_1_Rp==2)
 
-# Sacar porcentajes de quienes consideran que grandes empresas sÌ 
-respetan derechos humanos en cada departamento. Resultados ponderados al 
-factor de ponderaciÛn.
+# Sacar porcentajes de quienes consideran que grandes empresas s√≠ respetan derechos humanos en cada departamento. Resultados ponderados 
+# al factor de ponderaci√≥n.
 
 sum((subset(DH1, PA==1))$WTVAR)*100/sum((subset(DH, PA==1))$WTVAR)
 sum((subset(DH1, PA==2))$WTVAR)*100/sum((subset(DH, PA==2))$WTVAR)
@@ -186,9 +182,8 @@ sum((subset(DH1, PA==23))$WTVAR)*100/sum((subset(DH, PA==23))$WTVAR)
 sum((subset(DH1, PA==24))$WTVAR)*100/sum((subset(DH, PA==24))$WTVAR)
 sum((subset(DH1, PA==300))$WTVAR)*100/sum((subset(DH, PA==300))$WTVAR)
 
-# Sacar porcentajes de quienes consideran que grandes empresas no 
-respetan derechos humanos en cada departamento. Resultados ponderados al 
-factor de ponderaciÛn.
+# Sacar porcentajes de quienes consideran que grandes empresas no respetan derechos humanos en cada departamento. 
+# Resultados ponderados al factor de ponderaci√≥n.
 
 sum((subset(DH2, PA==1))$WTVAR)*100/sum((subset(DH, PA==1))$WTVAR)
 sum((subset(DH2, PA==2))$WTVAR)*100/sum((subset(DH, PA==2))$WTVAR)
@@ -216,27 +211,26 @@ sum((subset(DH2, PA==23))$WTVAR)*100/sum((subset(DH, PA==23))$WTVAR)
 sum((subset(DH2, PA==24))$WTVAR)*100/sum((subset(DH, PA==24))$WTVAR)
 sum((subset(DH2, PA==300))$WTVAR)*100/sum((subset(DH, PA==300))$WTVAR)
 
-# Con las cifras obtenidas para Lima, Piura, Hu·nuco y Ayacucho, 
-armar el data frame de dicha distribuciÛn porcentual
+# Con las cifras obtenidas para Loreto, Piura, Ucayali, Lima provincia, Puno y Amazonas, armar el data frame de dicha distribuci√≥n porcentual
 
-data5 = data.frame(DÛnde=c("Loreto", 
+data5 = data.frame(D√≥nde=c("Loreto", 
 "Loreto", "Piura", "Piura", "Ucayali", "Ucayali", "Lima provincia", "Lima provincia",
 "Puno", "Puno", "Amazonas", "Amazonas"), 
-PercepciÛn=c("Respetan", "No respetan", 
+Percepci√≥n=c("Respetan", "No respetan", 
 "Respetan", "No respetan", "Respetan", "No respetan", "Respetan", "No respetan",
 "Respetan", "No respetan", "Respetan", "No respetan"),
 Porcentaje=c(35, 64, 31, 65, 30, 67, 13, 86, 14, 82,
 10, 84))
 
-# Gr·fico
+# Gr√°fico
 
-data5$DÛnde = factor(data5$DÛnde,levels =  c("Loreto", "Piura", "Ucayali", 
+data5$D√≥nde = factor(data5$D√≥nde,levels =  c("Loreto", "Piura", "Ucayali", 
 "Puno", "Lima provincia", "Amazonas"))
 
-e = ggplot(data=data5, aes(x=DÛnde, y=Porcentaje, 
-fill=PercepciÛn))+
+e = ggplot(data=data5, aes(x=D√≥nde, y=Porcentaje, 
+fill=Percepci√≥n))+
 geom_bar(stat="identity", position=position_dodge(),width=0.6)+
-ggtitle("PercepciÛn de si grandes empresas respetan o no derechos humanos,
+ggtitle("Percepci√≥n de si grandes empresas respetan o no derechos humanos,
 en seis departamentos")+labs(y="", x="")+
 geom_text(aes(label=scales::percent(Porcentaje, scale = 1, accuracy = 1)), 
 vjust=-0.6, color="black", 
@@ -246,38 +240,36 @@ theme(plot.title = element_text(color="black", size=15, face="bold"))
 
 e
 
-# ComparaciÛn entre dos regiones: costa norte y sierra sur. Primero, ver
-distribuciÛn de departamentos por regiones.
+# Comparaci√≥n entre dos regiones: costa norte y sierra sur. Primero, ver distribuci√≥n de departamentos por regiones.
 
 table(DH$REGION)
 
-# Luego, agrupar proporciÛn de percepciÛn de que empresas respetan derechos
-humanos en costa norte (¡ncash, Piura, Tumbes, Lambayeque y La Libertad). 
-Resultados ponderados al factor de ponderaciÛn.
+# Luego, agrupar proporci√≥n de percepci√≥n de que empresas respetan derechos humanos en costa norte (√Åncash, Piura, Tumbes, Lambayeque y La Libertad). 
+# Resultados ponderados al factor de ponderaci√≥n.
 
 sum((subset(DH1, PA==3|PA==12|PA==13|PA==17|PA==21))$WTVAR)*100/sum((subset(DH, 
 PA==3|PA==12|PA==13|PA==17|PA==21))$WTVAR)
 sum((subset(DH2, PA==3|PA==12|PA==13|PA==17|PA==21))$WTVAR)*100/sum((subset(DH, 
 PA==3|PA==12|PA==13|PA==17|PA==21))$WTVAR)
 
-# Luego, hacer lo mismo con sierra central (Hu·nuco, Huancavelica, 
-JunÌn, Pasco).
+# Luego, hacer lo mismo con sierra central (Hu√°nuco, Huancavelica, Jun√≠n, Pasco).
 
 sum((subset(DH1, PA==9|PA==11|PA==16|PA==24))$WTVAR)*100/sum((subset(DH, 
 PA==9|PA==11|PA==16|PA==24))$WTVAR)
 sum((subset(DH2, PA==9|PA==11|PA==16|PA==24))$WTVAR)*100/sum((subset(DH, 
 PA==9|PA==11|PA==16|PA==24))$WTVAR)
 
-
 # Hacer data frame con resultados obtenidos.
 
-data6 = data.frame(DÛnde=c("Costa norte", "Costa norte", "Sierra centro", 
-"Sierra centro"), PercepciÛn=c("Respetan", "No respetan",
+data6 = data.frame(D√≥nde=c("Costa norte", "Costa norte", "Sierra centro", 
+"Sierra centro"), Percepci√≥n=c("Respetan", "No respetan",
 "Respetan", "No respetan"),Porcentaje=c(25, 71, 15, 79))
 
-f = ggplot(data=data6, aes(x=DÛnde, y=Porcentaje, fill=PercepciÛn))+
+# Gr√°fico
+
+f = ggplot(data=data6, aes(x=D√≥nde, y=Porcentaje, fill=Percepci√≥n))+
 geom_bar(stat="identity", position=position_dodge(),width=0.2)+
-ggtitle("PercepciÛn de si grandes empresas respetan o no derechos humanos: 
+ggtitle("Percepci√≥n de si grandes empresas respetan o no derechos humanos: 
 costa norte y sierra sur")+
 labs(y="", x="")+geom_text(aes(label=scales::percent(Porcentaje, 
 scale = 1, accuracy = 1)), vjust=-0.6, color="black", 
