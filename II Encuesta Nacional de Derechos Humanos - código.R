@@ -240,7 +240,7 @@ theme(plot.title = element_text(color="black", size=15, face="bold"))
 
 e
 
-# Comparación entre dos regiones: costa norte y sierra sur. Primero, ver distribución de departamentos por regiones.
+# Comparación entre dos regiones: costa norte y sierra central. Primero, ver distribución de departamentos por regiones.
 
 table(DH$REGION)
 
